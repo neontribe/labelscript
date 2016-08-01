@@ -1,6 +1,3 @@
-# LabelScript
-Label based interpreted language.
+![LabelScript logo](labelscript.png)
 
-Uses the mighty LabelWriter 400 to write labels.
-
-Javascript interpretor 
+Welcome to **LabelScript**, a project utilising a Dymo LabelWriter 400 to create a primitive programming language. Created for Untangled 2016. Uses JavaScript and a camera.
