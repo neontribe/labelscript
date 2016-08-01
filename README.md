@@ -1,3 +1,6 @@
-# labelscript
+# LabelScript
+Label based interpreted language.
 
-test commit
+Uses the mighty LabelWriter 400 to write labels.
+
+Javascript interpretor 
