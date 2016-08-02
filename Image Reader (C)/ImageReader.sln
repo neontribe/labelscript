@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageReader", "ImageReader\ImageReader.csproj", "{53FFCDDF-C779-4714-B793-E36B1D336525}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53FFCDDF-C779-4714-B793-E36B1D336525}.Debug|x86.ActiveCfg = Debug|x86
+		{53FFCDDF-C779-4714-B793-E36B1D336525}.Debug|x86.Build.0 = Debug|x86
+		{53FFCDDF-C779-4714-B793-E36B1D336525}.Release|x86.ActiveCfg = Release|x86
+		{53FFCDDF-C779-4714-B793-E36B1D336525}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ImageReader\ImageReader.csproj
+	EndGlobalSection
+EndGlobal
