@@ -1,3 +1,4 @@
+```
 int PosX, PosY
 float Rotation
 int Cur
@@ -36,3 +37,4 @@ function MoveBy(Ammount) {
 	PosX += Cos(Rotation) * Ammount;
 	PosY += Sin(Rotation) * Ammount;
 }
+```
