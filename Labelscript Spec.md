@@ -8,17 +8,17 @@ Basics:
 
 Commands:
 
- • 0 Stop
-	Stops the program
+ # 0 Stop
+	 Stops the program
 
- • 1 Rotate
-	Rotates the turtle by the ammount specified in the next block
-	The ammount is affected by the scale ammount
+ # 1 Rotate
+	 Rotates the turtle by the ammount specified in the next block
+	 The ammount is affected by the scale ammount
 
- • 2 Move
-	Moves forward in by the ammount specified
-	The ammount is affected by the scale ammount
+ # 2 Move
+	 Moves forward in by the ammount specified
+	 The ammount is affected by the scale ammount
 
- • 3 Scale
-	Changes the ammount that the rotations and moves will be scaled by
+ # 3 Scale
+	 Changes the ammount that the rotations and moves will be scaled by
 
