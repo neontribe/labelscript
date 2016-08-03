@@ -66,4 +66,4 @@ Again, you should leave this out normally. It's lines per inch.
 
 Put the path to the file you want to print here. You can *only* print text files (`.txt`) and images (`.png` definitely works, probably jpeg too). Do not attempt to print rich text, etc. - **if you want to print something more advanced than plain text, use an image** (otherwise it will print the XML or whatever and waste *all* the labels).
 
-That's about it. Ask me if you have any problems and I'll ~~begrudgingly~~ gladly help.
+That's about it. Ask me if you have any problems and I'll ~~begrudgingly~~ gladly help. There also might be some other options, but, like I said, the documentation is awful so nobody has any idea what they do.
