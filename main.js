@@ -7,13 +7,13 @@ const OFFSETHEIGHT = 25
 
 var getPixels = require("get-pixels")
 
-getPixels("images/encoded.jpg", function(err, pixels) {
+getPixels("images/test_image3.jpg", function(err, pixels) {
 	
 	if(err) {
 		console.log("Bad image path");
 		return;
 	}
-	
+	console.log(pixels);
 	scan(pixels);
 
 });
@@ -43,34 +43,27 @@ function scan(pixels) {
 	var imageWidth = pixels.shape[0]
 	var imageHeight = pixels.shape[1]
 
-	// var stepsX = ~~(imageWidth / SPACINGWIDTH);
-	// var stepsY = ~~(imageHeight / SPACINGHEIGHT);
 
-	// for(var x = 1; x < stepsX; x += 1) {
-	// 	for(var y = 1; y < stepsY; y += 1) {	
-	// 		console.log(getPixel(pixels, x * SPACINGWIDTH + OFFSETWIDTH, y * SPACINGHEIGHT + OFFSETHEIGHT));
-	// 	}
-	// 	console.log("BREAK");
-	// }
-	
-	var countX = 50;
+	var countX = 10;
 	var countY = 5;
 
 	var stepsX = ~~(imageWidth / countX);
 	var stepsY = ~~(imageHeight / countY);
 
+
+
 	//Take "strips" at regular intervals and average the colours.
 	//Because we know that the first two strips will both be solid black we can then measure the distance between average peaks.
-	var all_active_peak = 140;
+	var all_active_peak = 150;
 					//x, y, val
 	var first_peak = null;
 	var second_peak = null;
 
-	for(var i = 0; i < stepsX; i++) {
-		var strip = pixels.pick(i * countX, null, null);
-		var sum = 0;
-		var firstHit = 0;
-		for(var j = 0; j < stepsY; j++) {
+	for(let i = 0; i < stepsX; i++) {
+		let strip = pixels.pick(i * countX, null, null);
+		let sum = 0;
+		let firstHit = 0;
+		for(let j = 0; j < stepsY; j++) {
 			var curCol = getPixelFromStrip(strip, j * countY);
 
 			//Get the "y" index of the first black hit on the y axis
@@ -83,8 +76,9 @@ function scan(pixels) {
 		}
 
 		//calculate the pixel colour average.
-		var avg = ~~(sum / stepsY);
-		
+		var avg = Math.floor(sum / stepsY);
+
+
 		//If the average for the row is one which indicates the whole row is made up of black squares
 		if(avg < all_active_peak) {
 
@@ -103,19 +97,51 @@ function scan(pixels) {
 					//Terminate the whole loop when second match found
 					j = stepsY + 1;
 					i = stepsX + 1;
-				} else {
-					continue;
 				}
-
-
 			}
 		}
+	};
+
+	// var xNear = getPixel(pixel, first_peak[0], first_peak[1]);
+	// var temp_x = first_peak[0];
+
+
+	// while(getState(xNear) == "black") {
+	// 	xNear = getPixel(pixel)
+
+	// }
+
+
+	//Find the distance between the adjacent peaks, assume that the distance is the same for the rest of the columns.
+	var distance = Math.abs(second_peak[0] - first_peak[0]);
+	var offset = first_peak[1];
+
+	var x_steps = 9;
+	var y_steps = 4;
+
+	var step_size = distance;
+
+
+	for(var x = 2; x < x_steps; x += 1) {
+		
+		var relative_x = ~~(step_size * 1.05 * x + first_peak[0]);
+
+		for(var y = 0; y < y_steps; y += 1) {	
+			var relative_y = ~~((step_size * 1.2) * y + offset);
+
+			var strip = pixels.pick(relative_x, null, null);
+			var curCol = getPixelFromStrip(strip, relative_y);
+
+			console.log(curCol);
+
+
+		}
+		console.log("BREAK")
 	}
+	
 
 
-
-
-	console.log(first_peak, second_peak);
+//	console.log(first_peak, second_peak);
 
 
 
