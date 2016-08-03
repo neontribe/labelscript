@@ -1,0 +1,21 @@
+{
+  "name": "labelscript",
+  "version": "0.0.0",
+  "description": "Label script",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neontribe/labelscript.git"
+  },
+  "author": "Ben Nat Harry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neontribe/labelscript/issues"
+  },
+  "homepage": "https://github.com/neontribe/labelscript#readme"
+}
