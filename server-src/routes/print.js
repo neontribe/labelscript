@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* our printer code */
+var printer = require('../printer.js').printer;
 
+/* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+    res.render('status', { title: 'Express', printer: {
+        status: printer.getStatus()
+    }});
 });
 
 module.exports = router;
