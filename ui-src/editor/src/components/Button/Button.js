@@ -3,12 +3,12 @@ import './Button.css';
 
 class Button extends Component {
 	propTypes: {
-		imageUrl: React.PropTypes.string	
+		icon: React.PropTypes.string	
 	}
   
   	render() {
     	return (
-			<div class="button"><button><img src={this.props.imageUrl}/></button></div>
+			<button className="button" ><i className="material-icons">{this.props.icon}</i></button>
     	);
   	}
 }

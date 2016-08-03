@@ -1,4 +1,7 @@
 .logo > img {
-	width: 600px;
-	height: 300px;
+	width: 160px;
+	height: 75px;
+	float: left;
+	margin-left: 2%;
+	margin-top: 10px;
 }

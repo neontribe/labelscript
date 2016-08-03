@@ -1,5 +1,9 @@
 body {
-  margin: 0;
-  padding: 0;
   font-family: sans-serif;
+}
+
+textarea {
+	border-style: solid;
+	border-width: 5px;
+	border-color: #C70039;
 }
