@@ -1,21 +1,22 @@
 const SAMPLE_NUMBER = 5;
 
 var getPixels = require("get-pixels")
+var savePixels = require("save-pixels")
 
-getPixels("images/test_horiz.jpg", function(err, pixels) {
+getPixels("images/test_6.jpg", function(err, pixels) {
 	
 	if(err) {
 		console.log("Bad image path");
 		return;
 	}
-	console.log("LOAD");
+	
 	scan(pixels);
 
 });
 
 function getState(colourcode) {
 
-	if(colourcode > 120) {
+	if(colourcode >= 90) {
 		return "white"
 	} else {
 		return "black"
@@ -55,11 +56,35 @@ function scan(pixels) {
 
 
 	var colToMove = responses[2];
-	console.log(traverseAcross(pixels, colToMove[0], colToMove[1]));
+	var points = traverseAcross(pixels, colToMove[0], colToMove[1]);
 
+	var distance = points[0] - points[1];
+	var splitted = ~~(distance / 8);
+	var splitted_two = ~~(distance / 10);
 
+	var pixel_data = [];
 
+	for(var i = 0; i < 8; i++) {
+		pixel_data[i] = [];
+		for(var j = 0; j < 4; j++) {
+			var right = (splitted * i + points[1] + splitted / 2);
+			var left = (splitted * i + points[1]);
+			var mid = ~~Math.abs((right - left) * 0.5);
 
+			var y_pos = j * splitted_two + 25 + colToMove[1] + splitted_two;
+
+			pixel_data[i][j] = getState(getPixel(pixels, mid + left, y_pos));
+			//pixel_data[i][j] = (getPixel(pixels, (right - left)*0.5 + left, y_pos));
+
+			for(var k = 0; k < 50; k++) {
+				pixels.set(left, y_pos - 30 + k, 0, 255);
+				pixels.set(right, y_pos - 30 + k, 0, 255);
+			}
+		}
+		
+	}
+	console.log(pixel_data);
+	// savePixels(pixels, "png").pipe(process.stdout)
 }
 
 function traverseAcross(data, s_x, s_y) {
@@ -67,9 +92,9 @@ function traverseAcross(data, s_x, s_y) {
 	let belowColour = 0;
 	let tickColour = 255;
 	var tick_x = s_x;
-	var tick_y = s_y - 20;
+	var tick_y = s_y - 70;
 
-	var fixed_above = s_y - 20;
+	var fixed_above = s_y - 70;
 
 	var line_coords = [];
 
@@ -94,7 +119,7 @@ function traverseAcross(data, s_x, s_y) {
 
  	belowColour = 0;
 	tick_x = s_x;
-	tick_y = s_y - 20;
+	tick_y = s_y - 70;
 
 	while(getState(belowColour) == "black") {
 		var current_colour = getPixel(data, tick_x, tick_y);
@@ -117,45 +142,6 @@ function traverseAcross(data, s_x, s_y) {
 
 
 	return line_coords;
-
-
-	// let offset_y = 20;
-	// let cur_x = 0;
-	// let cur_y = 0;
-	// let colour = 0;
-	// let origin_x = s_x;
-	// let origin_y = s_y;
-	// let left_x, right_x;
-
-	// while(!left_x) {
-	// 	cur_x -= 1;
-	// 	cur_y = origin_y - 25;
-
-	// 	while(getPixel(data, cur_x, cur_y) == "black") {
-	// 		if (cur_y > origin_y + 20) {
-	// 			left_x = cur_x;
-	// 			break;
-	// 		}
-	// 		else{
-	// 			cur_y++;
-	// 		}
-	// 	}
-	// }
-
-	// while(!right_x) {
-	// 	cur_x += 1;
-	// 	cur_y = origin_y - 25;
-
-	// 	while(getPixel(data, cur_x, cur_y) == "black") {
-	// 		if (cur_y > origin_y + 20) {
-	// 			right_x = cur_x;
-	// 			break;
-	// 		}
-	// 		else{
-	// 			cur_y++;
-	// 		}
-	// 	}
-	// }
 }
 
 
