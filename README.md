@@ -1,6 +1,6 @@
-![LabelScript logo](images/labelscript3.png)
+![LabelScript logo](images/labelscriptheader.png)
 
-Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a 'Logo' like language using JavaScript and a camera.
+Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a Logo-like language using JavaScript and a camera.
 
 #Dev tools
 
@@ -49,6 +49,8 @@ An interpreter that will execute the imported labelscript code
 I assume you're using Linux. If not, YER ON YER OWN. First, go to [here](http://www.dymo.com/en-GB/dymo-label-sdk-and-cups-drivers-for-linux-dymo-label-sdk-cups-linux-p--1) and click the "DOWNLOAD" button (hard to miss, the rest of the page is broken). Then figure out what to do from its `install.md`.
 
 You probably need to set up the label maker, too. Plug it into both your computer and some power. It should register itself as a printer (Assuming you're using Ubuntu or something simple. If you're on Arch, you can probably fix your own problems.) - but you need to do a little more. Find whichever thing lets you set what printer it is and choose Dymo → LabelWriter 400. Now that that's set up, go to advanced printer settings and change the paper/label size to `99012 Large Address`. This is crucial to it printing correctly.
+
+Be warned: you can only print while the LabelWriter's light is **solid blue**. If it's blinking, fiddle with it until it isn't.
 
 Now, to the terminal. Here is a default command that will print something:
 
