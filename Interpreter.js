@@ -2,8 +2,7 @@ var PosX = 0, PosY = 0, Rotation = 0;
 var Cur = 0;
 var Instructions = [];
 
-var input = "3,3,1,5,4";
-Start(input);
+// Format is CSV "3,3,1,5,4"
 
 function Start(CSV) {
     Instructions = CSV.split(',');
@@ -33,13 +32,9 @@ function Start(CSV) {
                 i++;
             }
         }
-
+	// You must define a "Draw" Function
 	Draw();
     }
-}
-
-function Draw() { // PosX, PosY, Rotation
-    
 }
 
 function MoveBy(Ammount) {
