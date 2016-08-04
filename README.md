@@ -1,4 +1,4 @@
-![LabelScript logo](images/labelscript.png)
+![LabelScript logo](images/labelscript3.png)
 
 Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a 'Logo' like language using JavaScript and a camera.
 
