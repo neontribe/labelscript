@@ -2,6 +2,10 @@
 
 Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a 'Logo' like language using JavaScript and a camera.
 
+#Presentation
+
+https://docs.google.com/presentation/d/1DUTnCsu6AhFhqoRnJdvl28iO6Mk9HmroUXkL-RH-sB8/edit?usp=sharing (give Nat your email address to get editing rights)
+
 # Features
 
 - **Web based editor** 
