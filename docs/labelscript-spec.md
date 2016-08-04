@@ -16,11 +16,21 @@ Commands:
 	 Rotates the turtle by the amount specified in the next block  
 	 The amount is calculated by the midpoint being no change in angle and 0 being maximum turn left and 255 being maximum turn right.
 
- # 3 Loop
+ # 3 Loop  
  	Loops by the specified number, must be followed by a EndLoop
 
- # 4 EndLoop
+ # 4 EndLoop  
  	Goes back to the loop and decrements the loop counter by 1
  	
- # 5 Jump
+ # 5 Jump  
  	Jumps by the specified X and Y ignoring angles (takes 2 args) 
+ 	
+ You can change some var's before running Start(), you can use this to change the starting position, angle, max turn angle or number of bits expected.
+ 
+ List:
+   PosX
+   PosY
+   Rotation
+   MaxAng (radians)
+   MoveScale
+   BitCount
