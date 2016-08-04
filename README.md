@@ -1,5 +1,4 @@
-![LabelScript logo](images/labelscriptheader.png)
-
+![LabelScript logo](images/labelscriptheader.png)  
 Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a Logo-like language using JavaScript and a camera.
 
 #Dev tools
@@ -50,7 +49,7 @@ I assume you're using Linux. If not, YER ON YER OWN. First, go to [here](http://
 
 You probably need to set up the label maker, too. Plug it into both your computer and some power. It should register itself as a printer (Assuming you're using Ubuntu or something simple. If you're on Arch, you can probably fix your own problems.) - but you need to do a little more. Find whichever thing lets you set what printer it is and choose Dymo → LabelWriter 400. Now that that's set up, go to advanced printer settings and change the paper/label size to `99012 Large Address`. This is crucial to it printing correctly.
 
-Be warned: you can only print while the LabelWriter's light is **solid blue**. If it's blinking, fiddle with it until it isn't.
+Be warned: you can only print while the LabelWriter's light is **solid blue**. If it's blinking, ~~~fiddle with it until it isn't.~~ I can now tell you what's wrong with it. Open it up and press the reverse button until the spool is out (or just tear it off, but that's wasteful). Then feed it back in as close to the left edge (when facing the front) as possible. It should automatically eat it up. Make sure it's still left-aligned and it'll work perfectly! :)
 
 Now, to the terminal. Here is a default command that will print something:
 
