@@ -3,6 +3,7 @@ var Cur = 0;
 var Instructions = [];
 var MaxAng = Math.PI/2;
 var MoveScale = 0.5;
+var BitCount = 8;
 
 function Start(CSV, drawFunc) {
     Instructions = CSV.split(',');
@@ -10,6 +11,7 @@ function Start(CSV, drawFunc) {
     
     for(var i = 0; i < Instructions.length; i++) {
 	var Cur = Instructions[i];
+
         if(Cur == 1) { // Move
             MoveBy(Instructions[i + 1]);
 		console.log("->");
@@ -32,9 +34,9 @@ function Start(CSV, drawFunc) {
                 Loops--;
             }
         }
-        if(Cur == 5) { // SetPos
-            PosX = parseFloat(Instructions[i] + 1);
-	    PosY = parseFloat(Instructions[i] + 2);
+        if(Cur == 5) { // Jump
+            PosX += parseFloat(Instructions[i] + 1);
+	    PosY += parseFloat(Instructions[i] + 2);
 	    i += 2;
         }
 
@@ -44,7 +46,7 @@ function Start(CSV, drawFunc) {
 }
 
 function ToRotAngle(Input) {
-	var MaxAng = 1, BitCount = 8;
+	var MaxAng = 1;
 	var AngStep = MaxAng / Math.pow(2, BitCount);
 	
 	return -MaxAng + AngStep*Input;
