@@ -2,8 +2,11 @@ const SAMPLE_NUMBER = 5;
 
 var getPixels = require("get-pixels")
 var savePixels = require("save-pixels")
+var im = require('imagemagick');
 
-getPixels("images/test_6.jpg", function(err, pixels) {
+
+
+getPixels("images/test_4.jpg", function(err, pixels) {
 	
 	if(err) {
 		console.log("Bad image path");
@@ -56,6 +59,7 @@ function scan(pixels) {
 
 
 	var colToMove = responses[2];
+	console.log(responses);
 	var points = traverseAcross(pixels, colToMove[0], colToMove[1]);
 
 	var distance = points[0] - points[1];
@@ -84,7 +88,7 @@ function scan(pixels) {
 		
 	}
 	console.log(pixel_data);
-	// savePixels(pixels, "png").pipe(process.stdout)
+	//savePixels(pixels, "png").pipe(process.stdout)
 }
 
 function traverseAcross(data, s_x, s_y) {
@@ -92,9 +96,9 @@ function traverseAcross(data, s_x, s_y) {
 	let belowColour = 0;
 	let tickColour = 255;
 	var tick_x = s_x;
-	var tick_y = s_y - 70;
+	var tick_y = s_y - 50;
 
-	var fixed_above = s_y - 70;
+	var fixed_above = s_y - 50;
 
 	var line_coords = [];
 
@@ -119,7 +123,7 @@ function traverseAcross(data, s_x, s_y) {
 
  	belowColour = 0;
 	tick_x = s_x;
-	tick_y = s_y - 70;
+	tick_y = s_y - 50;
 
 	while(getState(belowColour) == "black") {
 		var current_colour = getPixel(data, tick_x, tick_y);
