@@ -2,28 +2,36 @@
 
 Welcome to **LabelScript**, an Untangled 2016 project utilising a Dymo LabelWriter 400 to create an implementation of a 'Logo' like language using JavaScript and a camera.
 
-#Presentation
+#Dev tools
+
+##Presentation
 
 https://docs.google.com/presentation/d/1DUTnCsu6AhFhqoRnJdvl28iO6Mk9HmroUXkL-RH-sB8/edit?usp=sharing (give Nat your email address to get editing rights)
 
-# Features
+##Discord server
 
-- **Web based editor** 
+https://discord.gg/qjZ9bKE (trespassers will be prosecuted)
+
+#Project
+
+##Features
+
+- **Web based editor**  
 Web based editor that allows a user to create a program Labelscript and print it out.
 
-- **Labelscript importer**
+- **Labelscript importer**  
 A camera system that reads in Labelscript and converts it.
 
-- **Labelscript interpreter**
+- **Labelscript interpreter**  
 An interpreter that will execute the imported labelscript code
 
-# Team Members
+##Team Members
 
 - **Harry**
 - **Ben**
 - **Nat**
 
-# Equipment
+##Equipment
 
 - **Raspberry Pi**
 - **Camera**
@@ -32,7 +40,9 @@ An interpreter that will execute the imported labelscript code
 - **Dymo 99012 Labels**
 - **Linux server**
 
-#How to use the Dymo LabelWriter 400
+#Guides
+
+##How to use the Dymo LabelWriter 400
 
 *a hopefully helpful guide by Nat*
 
