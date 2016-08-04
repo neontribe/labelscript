@@ -44,7 +44,7 @@ function Start(CSV, drawFunc) {
 }
 
 function ToRotAngle(Input) {
-	var MaxAng = 1, BitCount = 4;
+	var MaxAng = 1, BitCount = 8;
 	var AngStep = MaxAng / Math.pow(2, BitCount);
 	
 	return -MaxAng + AngStep*Input;
