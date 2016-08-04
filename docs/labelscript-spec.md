@@ -6,7 +6,7 @@
 	 which specifies the ammount it should be moved/rotated by. The
 	 stop command ends the program.
 
-#Commands:
+#Commands
 
 1. Move  
 Moves forward in by the amount specified  
@@ -21,6 +21,17 @@ Loops by the specified number, must be followed by a EndLoop
 
 4. EndLoop  
 Goes back to the loop and decrements the loop counter by 1
-
+ 	
 5. Jump  
 Jumps by the specified X and Y ignoring angles (takes 2 args) 
+ 	
+You can change some var's before running Start(), you can use this to change the starting position, angle, max turn angle or number of bits expected.
+ 
+##List
+
+   PosX  
+   PosY  
+   Rotation  
+   MaxAng (radians)  
+   MoveScale  
+   BitCount  
