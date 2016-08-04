@@ -1,48 +1,56 @@
-var PosX = 0, PosY = 0, Rotation = 0;
+var PosX = 45, PosY = 70, Rotation = Math.PI/2;
 var Cur = 0;
 var Instructions = [];
+var MaxAng = Math.PI/2;
+var MoveScale = 0.5;
 
-var input = "3,3,1,5,4";
-Start(input);
-
-function Start(CSV) {
+function Start(CSV, drawFunc) {
     Instructions = CSV.split(',');
     var Loops, LoopRoot;
     
     for(var i = 0; i < Instructions.length; i++) {
-        if(Instructions[i] == 1) { // Move
+	var Cur = Instructions[i];
+        if(Cur == 1) { // Move
             MoveBy(Instructions[i + 1]);
+		console.log("->");
             i++;
         }
 
-        if(Instructions[i] == 2) { // Rotate
-            Rotation += Instructions[i + 1];
+        if(Cur == 2) { // Rotate
+            Rotation += parseFloat(ToRotAngle(Instructions[i + 1]));
+		console.log(Rotation);
             i++;
         }
-        if(Instructions[i] == 3) { // Loop
+        if(Cur == 3) { // Loop
             Loops = Instructions[i + 1];
             LoopRoot = i + 1;
             i++;
         }
-        if(Instructions[i] == 4) { // End Loop
+        if(Cur == 4) { // End Loop
             if(Loops != 0) {
                 i = LoopRoot;
                 Loops--;
             }
-            else {
-                i++;
-            }
+        }
+        if(Cur == 5) { // SetPos
+            PosX = parseFloat(Instructions[i] + 1);
+	    PosY = parseFloat(Instructions[i] + 2);
+	    i += 2;
         }
 
-	Draw();
+	// you can define a draw function
+	drawFunc();
     }
 }
 
-function Draw() { // PosX, PosY, Rotation
-    
+function ToRotAngle(Input) {
+	var MaxAng = 1, BitCount = 4;
+	var AngStep = MaxAng / Math.pow(2, BitCount);
+	
+	return -MaxAng + AngStep*Input;
 }
 
 function MoveBy(Ammount) {
-    PosX += Math.cos(Rotation) * Ammount;
-    PosY += Math.sin(Rotation) * Ammount;
+    PosX += Math.sin(Rotation) * Ammount;
+    PosY += Math.cos(Rotation) * Ammount;
 }
