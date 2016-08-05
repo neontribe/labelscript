@@ -15,8 +15,9 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+	console.log(req.body);
 	printer.sendToPrinter(req.body);
-	res.close;
+	res.status(200).end('');
 });
 
 module.exports = router;
