@@ -226,52 +226,71 @@
         _listenForControls(enable) {
             var action = enable ? 'on' : 'off';
             var self = this;
-            $(this.controlSelector)[action]('click', '.move', function handleMove (evt) { 
+            $('body')[action]('click', '.modal.move .ok', function handleMove (evt) { 
                 evt.stopImmediatePropagation();
-                // if there is a target then add the command there
+                var $modal = $(evt.currentTarget).parents('.modal');
+                var $input = $modal.find('input');
+                var value = $input.val() || 1;
 
+                // if there is a target then add the command there
                 // todo get target method
                 var targets = self.state.command.add;
                 if (targets.length) {
-                    self.editor.addTo(targets[targets.length-1], new labelscript.Move(103)); 
+                    self.editor.addTo(targets[targets.length-1], new labelscript.Move(value)); 
                 } else {
-                    self.editor.add(new labelscript.Move(103)); 
+                    self.editor.add(new labelscript.Move(value)); 
                 }
                 self.render();
             });
 
-            $(this.controlSelector)[action]('click', '.rotate', function handleRotate (evt) { 
+            $('body')[action]('click', '.modal.rotate .ok', function handleRotate (evt) { 
                 evt.stopImmediatePropagation();
+                // todo abstract this into function
+                var $modal = $(evt.currentTarget).parents('.modal');
+                var $input = $modal.find('input');
+                var value = $input.val() || 1;
+
                 var targets = self.state.command.add;
                 if (targets.length) {
-                    self.editor.addTo(targets[targets.length-1], new labelscript.Rotate(360)); 
+                    self.editor.addTo(targets[targets.length-1], new labelscript.Rotate(value)); 
                 } else {
-                    self.editor.add(new labelscript.Rotate(360)); 
+                    self.editor.add(new labelscript.Rotate(value)); 
                 }
                 self.render();
             });
 
 
-            $(this.controlSelector)[action]('click', '.loop', function handleLoop (evt) { 
+            $('body')[action]('click', '.modal.loop .ok', function handleLoop (evt) { 
                 evt.stopImmediatePropagation();
+                var $modal = $(evt.currentTarget).parents('.modal');
+                var $input = $modal.find('input');
+                var value = $input.val() || 1;
                 /* todo nested loops, does our interpreter handle it? */
-                self.editor.add(new labelscript.Loop(10)); 
+                self.editor.add(new labelscript.Loop(value)); 
                 self.render();
             });
 
         
             $('body')[action]('click', function handleExitLoop (evt) {
+                if($(evt.target).hasClass('btn') || $(evt.target).parents('.modal').length) {
+                    return;
+                }
+                evt.stopImmediatePropagation();
                 self._setState('LOOP_INSERT_EXIT')
                 self.render();
             });
 
-            $(this.controlSelector)[action]('click', '.jump', function handleJump(evt) {
+            $('body')[action]('click', '.modal.jump .ok', function handleJump(evt) {
                 evt.stopImmediatePropagation();
+                var $modal = $(evt.currentTarget).parents('.modal');
+                var $input = $modal.find('input');
+                var value = $input.val() || 1;
+
                 var targets = self.state.command.add;
                 if (targets.length) {
-                    self.editor.addTo(targets[targets.length-1], new labelscript.Jump(533)); 
+                    self.editor.addTo(targets[targets.length-1], new labelscript.Jump(value)); 
                 } else {
-                    self.editor.add(new labelscript.Jump(533)); 
+                    self.editor.add(new labelscript.Jump(value)); 
                 }
                 self.render();
             });
