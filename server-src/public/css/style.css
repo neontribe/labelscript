@@ -5,3 +5,7 @@ body {
 .logo {
     max-height: 64px;
 }
+
+#editor {
+    margin-top: 64px;
+}
