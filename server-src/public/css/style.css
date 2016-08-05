@@ -6,6 +6,69 @@ body {
     max-height: 64px;
 }
 
+/* EDITOR STLYES BELOW */ 
 #editor {
     margin-top: 64px;
+}
+.label {
+	display: inline-block;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.label ul {
+	display: inline-block;
+}
+.column {
+	font-size: 10px;
+}
+.column li {
+	width: 10px;
+	height: 10px;
+}
+.column li::after {
+	content: '\\25A1';
+}
+.column li.blk::after {
+	content: '\\25FC';
+	position: relative;
+	/* this black square is annoyingly offset by 1px */
+	left: -1px;
+}
+
+.chip {
+	float: left;
+}
+.commands .chip .material-icons {
+	cursor: pointer;
+	float: right;
+	font-size: 16px;
+	line-height: 32px;
+	padding-left: 8px;
+}
+
+.commands .chip .badge {
+	position: initial;
+}
+.commands .chip.rotate .badge::after {
+	content: '\\00B0';
+}
+
+.commands .chip.highlighted {
+	background-color: #ffcf0c;
+}
+
+.editor-command.loop {
+	background-color: #ffc107;
+}
+
+.editor-command.move {
+	background-color: #aeea00;
+}
+
+.editor-command.rotate {
+	background-color: #2196f3;
+}
+
+span.badge {
+	color: black;
 }
