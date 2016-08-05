@@ -306,14 +306,21 @@
             });
 
         
-            $('body')[action]('click', function exitLoop (evt) {
+            $('body')[action]('click', function handleExitLoop (evt) {
                 self._setState('LOOP_INSERT_EXIT')
                 self.render();
             });
 
-            /*
-            $('#controls .jump').click(function() {
-            }); */
+            $(this.controlSelector)[action]('click', '.jump', function handleJump(evt) {
+                evt.stopImmediatePropagation();
+                var targets = self.state.command.add;
+                if (targets.length) {
+                    self.editor.addTo(targets[targets.length-1], new labelscript.Jump(533)); 
+                } else {
+                    self.editor.add(new labelscript.Jump(533)); 
+                }
+                self.render();
+            });
         }
 
         /*
@@ -534,6 +541,22 @@
         }
     }
 
-    // todo Jump
-    scope.Jump = class Jump extends Command {}
+    /*
+     * @class Jump
+     * @extends Command
+     *
+     * Similar to the Move class, just does not draw
+     */
+    scope.Jump = class Jump extends Command {
+        constructor(data) {
+            super();
+            this.data = data;
+            this.type = 'jump';
+        }
+        _command(length) {
+            var command = [1, 0, 1];
+            //generates an array for the current command
+            return command.concat(this._lengthToColumn(length)); 
+        }
+    }
 })(window);
