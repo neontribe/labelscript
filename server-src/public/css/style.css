@@ -83,12 +83,15 @@ span.badge {
     width: 100%;
 }
 
-ul.controls > button {
-	display: inline-block;
+ul.controls li {
+    display: inline-block;
 }
 
-button{
-	float: left;
-	margin-left: 1%;
-	margin-bottom: 2.5%;
+ul.controls {
+    display: inline-block;
+}
+
+ul.controls a {
+    margin-left: 1%;
+    margin-bottom: 2.5%;
 }
