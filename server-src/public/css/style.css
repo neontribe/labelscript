@@ -26,10 +26,10 @@ body {
 	height: 10px;
 }
 .column li::after {
-	content: '\\25A1';
+	content: '\25A1';
 }
 .column li.blk::after {
-	content: '\\25FC';
+	content: '\25FC';
 	position: relative;
 	/* this black square is annoyingly offset by 1px */
 	left: -1px;
@@ -47,7 +47,7 @@ body {
 	position: initial;
 }
 .commands .chip.rotate .badge::after {
-	content: '\\00B0';
+	content: '\00B0';
 }
 
 .commands .chip.highlighted {
@@ -66,6 +66,10 @@ body {
 	background-color: #2196f3;
 }
 
+.editor-command.jump {
+		background-color: #f44336;
+}
+
 span.badge {
 	color: black;
 }
@@ -76,4 +80,8 @@ span.badge {
 
 .labels {
     width: 100%;
+}
+
+ul.controls > button {
+	display: inline-block;
 }
