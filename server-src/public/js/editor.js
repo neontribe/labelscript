@@ -1,5 +1,4 @@
 (function(scope) {
-
     /*
      *  T O D O
      *  - Search 'todo', fix
@@ -9,8 +8,12 @@
      *  - Create print button
      *  - Add modal implementation for print
      */
-    scope = scope.labelscript = {};
 
+    scope = scope.labelscript = {};
+    
+    /*
+     * todo dont keep this here
+     */
     const _CSS =
     `<style>
         .label {
@@ -68,6 +71,12 @@
         LABEL_MAX_COLUMNS: 'Max columns for Label.',
     }
 
+    /*
+     * @class Command
+     *
+     * Stores a command and relevant data
+     * by default the command is empty
+     */
     class Command {
         constructor() {
             this.id = this._guid();
@@ -128,6 +137,11 @@
         }
     }
 
+    /* 
+     * @class Editor
+     *
+     * Skeleton class that allows access to command instances
+     */
     class Editor {
         constructor() {
             this.commands = [];
@@ -176,6 +190,13 @@
     }
 
     /* module.exports... lol */
+    // todo check doc format
+    /*
+     * @class EditorUI
+     * @param $ jQuery instance
+     * @param editorSelector jQuery selector
+     * @param controlSelector jQuery selector
+     */
     scope.EditorUI = class EditorUI {
         constructor($, editorSelector, controlSelector) {
             if (!$) {
@@ -188,6 +209,7 @@
                 throw new Error(_ERRORS.EDITOR_NO_CONTROL_SELECTOR);
             }
             this.editor = new Editor();
+            // todo template this from a const
             this.state = {
                 command: {
                     add: []
@@ -196,6 +218,8 @@
             this.$ = $;
             this.editorSelector = editorSelector;
             this.controlSelector = controlSelector
+            // todo group listen functions into generic method
+            // todo fix the action/enable mess
             this._listenForControls(true);
             this._listenForCommands(true);
             this.render();
@@ -226,6 +250,8 @@
             $(this.controlSelector)[action]('click', '.move', function handleMove (evt) { 
                 evt.stopImmediatePropagation();
                 // if there is a target then add the command there
+
+                // todo get target method
                 var targets = self.state.command.add;
                 if (targets.length) {
                     self.editor.addTo(targets[targets.length-1], new labelscript.Move(103)); 
@@ -390,6 +416,12 @@
             $(this.editorSelector).html(this._build());
         }
     }
+
+    /*
+     * @class Label
+     *
+     * Represents a label containing columns of instructions
+     */
     scope.Label = class Label {
         constructor() {
             this.MAX_COLUMNS = 7;
@@ -404,6 +436,12 @@
             this.columns.push(column);
         }
     }
+
+    /*
+     * @class Move
+     * @extends Command
+     * @param data data associated with the MOVE command
+     */
     scope.Move = class Move extends Command {
         constructor(data) {
             super();
@@ -414,6 +452,12 @@
             return [1, 0, 0, 0]
         }
     }
+
+    /*
+     * @class Rotate
+     * @extends Command
+     * @param data data associated with the ROTATE command
+     */
     scope.Rotate = class Rotate extends Command {
         constructor(data) {
             super();
@@ -424,6 +468,14 @@
             return [0, 1, 0, 0]
         }
     }
+
+    /*
+     * @class Loop
+     * @extends Command
+     * 
+     * This is a meta command that exposes an 'add' method
+     * This method allows the editor to nest commands within the Loop's data attribute
+     */
     scope.Loop = class Loop extends Command {
         constructor() {
             super();
@@ -449,5 +501,6 @@
         }
     }
 
+    // todo Jump
     scope.Jump = class Jump extends Command {}
 })(window);
