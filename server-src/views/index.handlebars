@@ -17,14 +17,69 @@
   </div>
   <div class="col s12 editor-code z-depth-1">
     <ul class="controls">
-        <li><button class="move btn waves-effect waves-light lime accent-4">Move</button></li>
-        <li><button class="rotate btn waves-effect waves-light blue">Rotate</button></li>
-        <li><button class="loop btn waves-effect waves-light amber">Loop</button></li>
-        <li><button class="jump btn waves-effect waves-light red">Jump</button></li>
+        <li><a class="modal-trigger move btn waves-effect waves-light lime accent-4" href="#move-modal">Move</a></li>
+        <li><a class="modal-trigger rotate btn waves-effect waves-light blue" href="#rotate-modal">Rotate</a></li>
+        <li><a class="modal-trigger loop btn waves-effect waves-light amber" href="#loop-modal">Loop</a></li>
+        <li><a class="modal-trigger jump btn waves-effect waves-light red" href="#jump-modal">Jump</a></li>
     </ul>
   </div>
   <div class="col s12">
       <div id="editor">
       </div>
   </div>
+</div>
+
+<!-- MODALS -->
+<!-- todo use a modal template rather than 4 modals -->
+<div id="move-modal" class="modal">
+    <div class="modal-content">
+        <h4>Move Command</h4>
+        <p>Add a new MOVE command</p>
+        <label>Move By
+            <input name="data" placeholder="e.g 103"/>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Close</a>
+    </div>
+</div>
+<div id="rotate-modal" class="modal">
+    <div class="modal-content">
+        <h4>Rotate Command</h4>
+        <p>Add a new ROTATE command</p>
+        <label>Rotate By
+            <input name="data" placeholder="e.g 360"/>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Close</a>
+    </div>
+</div>
+<div id="loop-modal" class="modal">
+    <div class="modal-content">
+        <h4>Loop Command</h4>
+        <p>Add a new LOOP command</p>
+        <label>Loop 'x' times
+            <input name="data" placeholder="e.g 3"/>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Close</a>
+    </div>
+</div>
+<div id="jump-modal" class="modal">
+    <div class="modal-content">
+        <h4>Jump Command</h4>
+        <p>Add a new JUMP command</p>
+        <label>Jump by
+            <input name="data" placeholder="e.g 17"/>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Close</a>
+    </div>
 </div>
