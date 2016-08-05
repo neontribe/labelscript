@@ -1,4 +1,5 @@
 (function(scope) {
+	'use strict';
     /*
      *  T O D O
      *  - Search 'todo', fix
