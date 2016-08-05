@@ -297,9 +297,41 @@
 
             $('body')[action]('click', 'a.print', function handlePrint(evt) {
                 evt.stopImmediatePropagation();
-                var editor = self.editor.editor;
+                var editor = self.editor;
                 var labels = [...editor.labels()];
-                if(labels.length) {
+                var rows = [];
+                var map = {
+                    0:  '□',
+                    1:  '■'
+                };
+                var rowedLabels = [];
+                labels.forEach(function(label, i) {
+                    var rows = [];
+                    var c = label.columns;
+                    c.forEach(function(column) {
+                            column.forEach(function(v, i) {
+                                    var row = rows[i] || [];
+                                    row.push(map[v]);
+                                    rows[i] = row;
+                            });
+                    });
+                    rowedLabels.push(rows);
+                });
+                if(rowedLabels.length) {
+                    var p = rowedLabels.map(function(label) {
+                        return function() {
+                            return $.ajax({
+                                type: 'POST',
+                                url: '/print',
+                                data: JSON.stringify(label),
+                                dataType: 'json'
+                            });
+                        };
+                    });
+
+                    p = p.reduce(function(current, next) {
+                        return current.then(next);
+                    }, $.Deferred().resolve());
                     // post each one
                     // label.columns
                 }
