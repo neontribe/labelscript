@@ -390,6 +390,7 @@
             var listItems = this._buildCommands(this.editor.commands);
             var commandUIMarkup =
             `<div class="commands">
+                <h2 class="editor-heading">Code:</h2>
                 ${ listItems.join('') }
             </div>`;
             return commandUIMarkup;
@@ -397,7 +398,8 @@
         _buildLabelUI() {
             var listItems = this._buildLabels([...this.editor.labels()]);
             var labelUIMarkup = 
-            `<div class="labels">
+                `<div class="labels">
+                <h2 class="editor-heading">Preview:</h2>
                 <div class="row">
                     <div class="col s12">
                         ${ listItems.join('') }
