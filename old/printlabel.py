@@ -104,4 +104,4 @@ while True:
     print(cmdFull)
     print()
     printLabelFromText(cmdFull)
-    time.sleep(10)
+    time.sleep(6)

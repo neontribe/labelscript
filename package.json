@@ -4,7 +4,9 @@
   "description": "Label script",
   "main": "main.js",
   "dependencies": {
-    "canvas": "^1.4.0"
+    "canvas": "^1.4.0",
+    "shelljs": "^0.7.3",
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {},
   "scripts": {
