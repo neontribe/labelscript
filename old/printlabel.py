@@ -2,6 +2,8 @@ import os
 import binascii
 import base64
 import sys
+import random
+import time
 
 filename = "pythonoutputdoc.txt"
 
@@ -10,6 +12,13 @@ def printLabelWithFontFromFile(iFilename, cpi, lpi):
     os.system(printCommand)
 
 def printLabelWithFontFromText(writeText, cpi, lpi):
+    printCommand = "lpr -o landscape -o PageSize=24_mm__1___Label__Auto_ " + filename
+    doc = open("pythonoutputdoc.txt", "w")
+    doc.write(writeText)
+    doc.close()
+    os.system(printCommand)
+
+def printLabelFromText(writeText):
     printCommand = "lpr -o landscape -o PageSize=24_mm__1___Label__Auto_ " + filename
     doc = open("pythonoutputdoc.txt", "w")
     doc.write(writeText)
@@ -66,5 +75,22 @@ def printLabelPromptBinary():
     print("Printing...")
     os.system(printCommand)
 
+os.system("cancel -a LabelWriter-400")
 while True:
-    printLabelPrompt()
+    cmdA = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdB = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdC = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdD = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdA = cmdA.replace("0","□")
+    cmdA = cmdA.replace("1","■")
+    cmdB = cmdB.replace("0","□")
+    cmdB = cmdB.replace("1","■")
+    cmdC = cmdC.replace("0","□")
+    cmdC = cmdC.replace("1","■")
+    cmdD = cmdD.replace("0","□")
+    cmdD = cmdD.replace("1","■")
+    cmdFull = "――――――――――――――――" + os.linesep + cmdA + os.linesep + cmdB + os.linesep + cmdC + os.linesep + cmdD
+    print(cmdFull)
+    print()
+    printLabelFromText(cmdFull)
+    time.sleep(10)

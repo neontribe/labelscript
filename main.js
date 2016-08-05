@@ -2,8 +2,15 @@ const SAMPLE_NUMBER = 5;
 
 var getPixels = require("get-pixels")
 var savePixels = require("save-pixels")
+var im = require('imagemagick');
 
-getPixels("images/test_6.jpg", function(err, pixels) {
+ var fs = require('fs')
+
+
+ var interpreter_module = require("./interpreter_module.js");
+
+
+getPixels("images/corrected_binary.jpg", function(err, pixels) {
 	
 	if(err) {
 		console.log("Bad image path");
@@ -35,6 +42,16 @@ function getPixelFromStrip(data, i) {
 var xTickInc = 10;
 var yTickInc = 32;
 
+function getBinFromPixel(value) {
+	if(value >= 90) {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+var output_draw = fs.createWriteStream('test.jpg');
+
 function scan(pixels) {
 	let imageWidth = pixels.shape[0];
 	let imageHeight = pixels.shape[1];
@@ -56,6 +73,7 @@ function scan(pixels) {
 
 
 	var colToMove = responses[2];
+	//console.log(responses);
 	var points = traverseAcross(pixels, colToMove[0], colToMove[1]);
 
 	var distance = points[0] - points[1];
@@ -64,16 +82,19 @@ function scan(pixels) {
 
 	var pixel_data = [];
 
-	for(var i = 0; i < 8; i++) {
+	var count = 0;
+	for(var i = 0; i < 7; i++) {
 		pixel_data[i] = [];
 		for(var j = 0; j < 4; j++) {
+			
 			var right = (splitted * i + points[1] + splitted / 2);
 			var left = (splitted * i + points[1]);
 			var mid = ~~Math.abs((right - left) * 0.5);
 
 			var y_pos = j * splitted_two + 25 + colToMove[1] + splitted_two;
 
-			pixel_data[i][j] = getState(getPixel(pixels, mid + left, y_pos));
+			pixel_data[i][j] = getBinFromPixel(getPixel(pixels, mid + left, y_pos));
+			
 			//pixel_data[i][j] = (getPixel(pixels, (right - left)*0.5 + left, y_pos));
 
 			for(var k = 0; k < 50; k++) {
@@ -81,10 +102,23 @@ function scan(pixels) {
 				pixels.set(right, y_pos - 30 + k, 0, 255);
 			}
 		}
+
+		pixel_data[i] = pixel_data[i]
 		
 	}
-	console.log(pixel_data);
-	// savePixels(pixels, "png").pipe(process.stdout)
+
+	for(var i = 0; i < pixel_data.length; i++) {
+		console.log(pixel_data[i].reverse().join(""));
+		pixel_data[i] = parseInt(pixel_data[i].join(""), 2);
+	}
+	
+
+	savePixels(pixels, "png").pipe(output_draw)
+
+
+
+	// interpreter_module("3,13,1,10,2,9,4");
+	interpreter_module(pixel_data.join(","));
 }
 
 function traverseAcross(data, s_x, s_y) {
@@ -92,9 +126,9 @@ function traverseAcross(data, s_x, s_y) {
 	let belowColour = 0;
 	let tickColour = 255;
 	var tick_x = s_x;
-	var tick_y = s_y - 70;
+	var tick_y = s_y - 50;
 
-	var fixed_above = s_y - 70;
+	var fixed_above = s_y - 50;
 
 	var line_coords = [];
 
@@ -119,7 +153,7 @@ function traverseAcross(data, s_x, s_y) {
 
  	belowColour = 0;
 	tick_x = s_x;
-	tick_y = s_y - 70;
+	tick_y = s_y - 50;
 
 	while(getState(belowColour) == "black") {
 		var current_colour = getPixel(data, tick_x, tick_y);
@@ -169,3 +203,6 @@ function traverseDown(data, h) {
 
 	return s_y;
 }
+
+
+
