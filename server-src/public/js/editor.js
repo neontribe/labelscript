@@ -42,9 +42,6 @@
             left: -1px;
         }
 
-        .chip {
-            float: left;
-        }
         .commands .chip .material-icons {
             cursor: pointer;
             float: right;

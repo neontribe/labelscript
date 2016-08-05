@@ -9,3 +9,11 @@ body {
 #editor {
     margin-top: 64px;
 }
+
+.commands {
+    width: 100%;
+}
+
+.labels {
+    width: 100%;
+}
