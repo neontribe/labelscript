@@ -272,6 +272,10 @@
 
         
             $('body')[action]('click', function handleExitLoop (evt) {
+                if($(evt.target).hasClass('btn') || $(evt.target).parents('.modal').length) {
+                    return;
+                }
+                evt.stopImmediatePropagation();
                 self._setState('LOOP_INSERT_EXIT')
                 self.render();
             });
