@@ -17,52 +17,6 @@
      */
     const _CSS =
     `<style>
-        .label {
-            display: inline-block;
-            padding-left: 50px;
-            padding-right: 50px;
-        }
-        .label ul {
-            display: inline-block;
-        }
-        .column {
-            font-size: 10px;
-        }
-        .column li {
-            width: 10px;
-            height: 10px;
-        }
-        .column li::after {
-            content: '\\25A1';
-        }
-        .column li.blk::after {
-            content: '\\25FC';
-            position: relative;
-            /* this black square is annoyingly offset by 1px */
-            left: -1px;
-        }
-
-        .chip {
-            float: left;
-        }
-        .commands .chip .material-icons {
-            cursor: pointer;
-            float: right;
-            font-size: 16px;
-            line-height: 32px;
-            padding-left: 8px;
-        }
-
-        .commands .chip .badge {
-            position: initial;
-        }
-        .commands .chip.rotate .badge::after {
-            content: '\\00B0';
-        }
-
-        .commands .chip.highlighted {
-            background-color: #ffcf0c;
-        }
     </style>`;
 
     const _ERRORS = {
@@ -81,7 +35,7 @@
     class Command {
         constructor() {
             this.id = this._guid();
-            this.MAX_BIT_PER_COLUMN = 4;
+            this.MAX_BIT_PER_COLUMN = 6;
             this.type = 'default';
         }
         /*
@@ -99,42 +53,66 @@
 
             return out;
         }
-        _end() {
-            return [0, 0, 0, 0]
-        }
-        _command() {
+        _command(length) {
+            var command = [0, 0, 0];
             //generates an array for the current command
-            return this._end(); 
+            return command.concat(this._lengthToColumn(length)); 
         }
-        _padColumn(column, pad) {
-            if(column.length === this.MAX_BIT_PER_COLUMN) {
+        _lengthToColumn(length) {
+            var binaryLength = this._integerToBinaryString(length);
+            // we reverse here
+            var binaryArr = binaryLength.split('').reverse().map((bit) => parseInt(bit));
+            if (binaryArr.length < 3) {
+                binaryArr = this._padColumn(binaryArr, 0, 3);
+            }
+            // just enforce the length here
+            binaryArr.length = 3;
+            return binaryArr;
+        }
+        _padColumn(column, pad, max) {
+            if( typeof max === "undefined" ) {
+                max = this.MAX_BIT_PER_COLUMN;
+            }
+
+            if(column.length === max) {
                 return column;
             }
             var oldLength = column.length;
-            column.length = this.MAX_BIT_PER_COLUMN;
+            column.length = max;
             return column.fill(pad, oldLength);
         }
-        *columns() {
+        _integerToBinaryString(integer) {
             /*
              * http://stackoverflow.com/a/16155417
              */
-            var binaryString = (this.data >>> 0).toString(2);
-
-            yield this._command();
-
-            var output = [];
-            for (let bit of binaryString.split('')) {
-                output.push(parseInt(bit));
-                if( !( output.length % this.MAX_BIT_PER_COLUMN ) ) {
-                    yield output;
-                    output = [];
+            return (integer >>> 0).toString(2);
+        }
+        _binaryStringToColumns(binaryString) {
+            var self = this;
+            var dataColumns = [];
+            var column = [];
+            binaryString.split('').reverse().map(function(bit) {
+                column.push(parseInt(bit));
+                if( !( column.length % self.MAX_BIT_PER_COLUMN ) ) {
+                    dataColumns.push(column);
+                    column = [];
                 }
-            }
-            if (output.length) {
-                yield this._padColumn(output);
-            }
+            });
+            /* if a column has data and is not in dataColumns, pad it first */
+            if (column.length) {
+                dataColumns.push(this._padColumn(column, 0));
+            } 
+            return dataColumns;
+        }
+        *columns() {
+            var self = this;
+            var binaryData = this._integerToBinaryString(this.data);
+            var columns = this._binaryStringToColumns(binaryData);
+            // todo enforce max columns of 7
 
-            yield this._end();
+            // prepare the length data
+            yield this._command(columns.length);
+            yield* columns;
         }
     }
 
@@ -277,19 +255,26 @@
             $(this.controlSelector)[action]('click', '.loop', function handleLoop (evt) { 
                 evt.stopImmediatePropagation();
                 /* todo nested loops, does our interpreter handle it? */
-                self.editor.add(new labelscript.Loop()); 
+                self.editor.add(new labelscript.Loop(10)); 
                 self.render();
             });
 
         
-            $('body')[action]('click', function exitLoop (evt) {
+            $('body')[action]('click', function handleExitLoop (evt) {
                 self._setState('LOOP_INSERT_EXIT')
                 self.render();
             });
 
-            /*
-            $('#controls .jump').click(function() {
-            }); */
+            $(this.controlSelector)[action]('click', '.jump', function handleJump(evt) {
+                evt.stopImmediatePropagation();
+                var targets = self.state.command.add;
+                if (targets.length) {
+                    self.editor.addTo(targets[targets.length-1], new labelscript.Jump(533)); 
+                } else {
+                    self.editor.add(new labelscript.Jump(533)); 
+                }
+                self.render();
+            });
         }
 
         /*
@@ -327,7 +312,7 @@
                 <i class="material-icons editor-command-swap">swap_horiz</i>--> */
             var commandButtons = '';
             var innerContent = '';
-            var badgeContent = '';
+            var badgeContent = parseInt(command.data);
             var commandClasses = command.type;
             /* todo move this into switch for other types */
             /* todo change types to constants */
@@ -337,11 +322,9 @@
                     commandClasses += ' highlighted';
                 }
                 commandButtons += ' <i class="material-icons editor-command-add">add</i>';
-                innerContent += this._buildCommands(command.data).join('');
-            } else {
-                badgeContent = parseInt(command.data);
+                innerContent += this._buildCommands(command.commands).join('');
             }
-
+            
             /* 
              * todo remove logic from templ strings
              *
@@ -449,8 +432,10 @@
             this.data = data;
             this.type = 'move';
         }
-        _command() {
-            return [1, 0, 0, 0]
+        _command(length) {
+            var command = [1, 0, 0];
+            //generates an array for the current command
+            return command.concat(this._lengthToColumn(length)); 
         }
     }
 
@@ -465,8 +450,10 @@
             this.data = data;
             this.type = 'rotate';
         }
-        _command() {
-            return [0, 1, 0, 0]
+        _command(length) {
+            var command = [0, 1, 0];
+            //generates an array for the current command
+            return command.concat(this._lengthToColumn(length)); 
         }
     }
 
@@ -478,30 +465,52 @@
      * This method allows the editor to nest commands within the Loop's data attribute
      */
     scope.Loop = class Loop extends Command {
-        constructor() {
+        constructor(data) {
             super();
-            this.data = [];
+            this.commands = [];
+            this.data = data;
             this.type = 'loop';
         }
-        *_command() {
-            yield [1, 1, 0, 0];
-            yield [0, 0, 1, 0];
+        *_command(length) {
+            // start loop
+            yield [1, 1, 0].concat(this._lengthToColumn(length));
+            // end loop
+            yield [0, 0, 1, 0, 0, 0];
         }
         *columns() {
-            var commandGen = this._command();
+            var binaryData = this._integerToBinaryString(this.data);
+            var columns = this._binaryStringToColumns(binaryData);
+            var commandGen = this._command(columns.length);
+
+            yield commandGen.next(columns.length).value;
+            // this data is the number of times we should loop
+            yield* columns;
+            // this are the inner commands in the loop
+            yield* this.commands.reduce((reduction, command) => reduction.concat([...command.columns()]), []);
+            // this flushes the endloop command
             yield commandGen.next().value;
-            yield this._end();
-            //this.data is an array of Commands
-            //2d
-            yield* this.data.reduce((reduction, command) => reduction.concat([...command.columns()]), []);
-            yield commandGen.next().value;
-            yield this._end();
         }
         add(command) {
-            this.data.push(command);
+            this.commands.push(command);
         }
     }
 
-    // todo Jump
-    scope.Jump = class Jump extends Command {}
+    /*
+     * @class Jump
+     * @extends Command
+     *
+     * Similar to the Move class, just does not draw
+     */
+    scope.Jump = class Jump extends Command {
+        constructor(data) {
+            super();
+            this.data = data;
+            this.type = 'jump';
+        }
+        _command(length) {
+            var command = [1, 0, 1];
+            //generates an array for the current command
+            return command.concat(this._lengthToColumn(length)); 
+        }
+    }
 })(window);

@@ -35,9 +35,6 @@ body {
 	left: -1px;
 }
 
-.chip {
-	float: left;
-}
 .commands .chip .material-icons {
 	cursor: pointer;
 	float: right;
@@ -71,4 +68,12 @@ body {
 
 span.badge {
 	color: black;
+}
+
+.commands {
+    width: 100%;
+}
+
+.labels {
+    width: 100%;
 }

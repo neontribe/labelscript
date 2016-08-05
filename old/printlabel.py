@@ -75,12 +75,19 @@ def printLabelPromptBinary():
     print("Printing...")
     os.system(printCommand)
 
+def setRandomBinSquares(var):
+    var = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    var = var.replace("0","□")
+    var = var.replace("1","■")
+
 os.system("cancel -a LabelWriter-400")
 while True:
     cmdA = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
     cmdB = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
     cmdC = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
     cmdD = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdE = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
+    cmdF = random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"]) + " " + random.choice(["0","1"])
     cmdA = cmdA.replace("0","□")
     cmdA = cmdA.replace("1","■")
     cmdB = cmdB.replace("0","□")
@@ -89,7 +96,11 @@ while True:
     cmdC = cmdC.replace("1","■")
     cmdD = cmdD.replace("0","□")
     cmdD = cmdD.replace("1","■")
-    cmdFull = "――――――――――――――――" + os.linesep + cmdA + os.linesep + cmdB + os.linesep + cmdC + os.linesep + cmdD
+    cmdE = cmdE.replace("0","□")
+    cmdE = cmdE.replace("1","■")
+    cmdF = cmdF.replace("0","□")
+    cmdF = cmdF.replace("1","■")
+    cmdFull = "――――――――――――――――" + os.linesep + cmdA + os.linesep + cmdB + os.linesep + cmdC + os.linesep + cmdD + os.linesep + cmdE + os.linesep + cmdF
     print(cmdFull)
     print()
     printLabelFromText(cmdFull)
