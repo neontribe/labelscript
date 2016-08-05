@@ -96,26 +96,42 @@ ul.controls a {
     margin-bottom: 2.5%;
 }
 
-label {
-	color: black;
+
+.modal > * {
+	color: white;
+
 }
 
-input {
-	border-bottom: 1px solid black;
+.modal a.btn-flat {
+	color: white;
+}
+
+.modal label {
+	color: white;
+}
+
+.modal input {
+	border-bottom: 1px solid white;
 }
 
 ::-webkit-input-placeholder {
-   color: black;
+   color: white;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: black;  
+   color: white;  
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: black;  
+   color: white;  
 }
 
 :-ms-input-placeholder {  
-   color: black;  
+   color: white;  
 }
+
+h4 {
+	color: white
+}
+
+p {}
