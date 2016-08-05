@@ -41,7 +41,8 @@ body {
 	font-size: 16px;
 	line-height: 32px;
 	padding-left: 8px;
-}
+
+}/*buttons for the coding eg loop*/
 
 .commands .chip .badge {
 	position: initial;
@@ -84,4 +85,10 @@ span.badge {
 
 ul.controls > button {
 	display: inline-block;
+}
+
+button{
+	float: left;
+	margin-left: 1%;
+	margin-bottom: 2.5%;
 }
