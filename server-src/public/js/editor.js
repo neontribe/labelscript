@@ -294,6 +294,16 @@
                 }
                 self.render();
             });
+
+            $('body')[action]('click', 'a.print', function handlePrint(evt) {
+                evt.stopImmediatePropagation();
+                var editor = self.editor.editor;
+                var labels = [...editor.labels()];
+                if(labels.length) {
+                    // post each one
+                    // label.columns
+                }
+            });
         }
 
         /*
