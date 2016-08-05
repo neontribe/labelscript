@@ -95,3 +95,27 @@ ul.controls a {
     margin-left: 1%;
     margin-bottom: 2.5%;
 }
+
+label {
+	color: black;
+}
+
+input {
+	border-bottom: 1px solid black;
+}
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;  
+}
+
+:-ms-input-placeholder {  
+   color: black;  
+}
